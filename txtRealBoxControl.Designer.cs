@@ -43,7 +43,7 @@
             this.txtBox.MaxLength = 12;
             this.txtBox.Multiline = true;
             this.txtBox.Name = "txtBox";
-            this.txtBox.Size = new System.Drawing.Size(324, 157);
+            this.txtBox.Size = new System.Drawing.Size(322, 70);
             this.txtBox.TabIndex = 0;
             this.txtBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtBox.TextChanged += new System.EventHandler(this.TxtBox_TextChanged);
@@ -53,12 +53,13 @@
             // txtRealBoxControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.txtBox);
             this.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "txtRealBoxControl";
             this.Padding = new System.Windows.Forms.Padding(7);
-            this.Size = new System.Drawing.Size(338, 171);
+            this.Size = new System.Drawing.Size(336, 84);
             this.Enter += new System.EventHandler(this.TxtRealBoxControl_Enter);
             this.Leave += new System.EventHandler(this.TxtRealBoxControl_Leave);
             this.ResumeLayout(false);

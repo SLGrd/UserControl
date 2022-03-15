@@ -44,8 +44,8 @@ public partial class txtRealBoxControl : UserControl
             else
             {
                 if (txtBox.Text[0] == Minus && txtBox.SelectionStart == 0) txtBox.SelectionStart = 1;
-                if (txtBox.Text.Length < MaxLength)
-                    txtBox.Text = UFormat( txtBox.Text.Insert(txtBox.SelectionStart, e.KeyChar.ToString()));                        
+                if (txtBox.Text.Length < _MaxLength)
+                    txtBox.Text = UFormat( txtBox.Text.Insert(txtBox.SelectionStart, e.KeyChar.ToString()));            
             }
             txtBox.SelectionStart = cursorPosition > txtBox.Text.Length ? 0 : txtBox.Text.Length - cursorPosition;
             SetPlusMinusColor();
@@ -82,11 +82,7 @@ public partial class txtRealBoxControl : UserControl
         }
     }
     private void SetPlusMinusColor() => txtBox.ForeColor = (txtBox.Text[0] == Minus) ? Color.Red : Color.Black;
-    private void TxtRealBoxControl_Enter(object sender, EventArgs e)
-    {
-        this.BorderStyle = BorderStyle.FixedSingle;
-        this.BackColor = Color.Black;
-    }
+    private void TxtRealBoxControl_Enter(object sender, EventArgs e) => this.BackColor = Color.Black;
     private void TxtRealBoxControl_Leave(object sender, EventArgs e) => this.BackColor = Color.Gray;
     private string UFormat(string t)
     {
