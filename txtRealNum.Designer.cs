@@ -1,6 +1,6 @@
 ﻿namespace RealBoxNetCls
 {
-    partial class txtCpfBox
+    partial class txtRealNum
     {
         /// <summary> 
         /// Required designer variable.
@@ -44,7 +44,7 @@
             this.Caption.Location = new System.Drawing.Point(0, 0);
             this.Caption.Name = "Caption";
             this.Caption.Size = new System.Drawing.Size(83, 32);
-            this.Caption.TabIndex = 1;
+            this.Caption.TabIndex = 0;
             this.Caption.Text = "label1";
             // 
             // Footer
@@ -53,8 +53,8 @@
             this.Footer.ForeColor = System.Drawing.Color.Firebrick;
             this.Footer.Location = new System.Drawing.Point(0, 125);
             this.Footer.Name = "Footer";
-            this.Footer.Size = new System.Drawing.Size(398, 25);
-            this.Footer.TabIndex = 2;
+            this.Footer.Size = new System.Drawing.Size(425, 25);
+            this.Footer.TabIndex = 1;
             this.Footer.Text = "label2";
             this.Footer.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
@@ -66,41 +66,39 @@
             this.pnl.Location = new System.Drawing.Point(0, 32);
             this.pnl.Name = "pnl";
             this.pnl.Padding = new System.Windows.Forms.Padding(6);
-            this.pnl.Size = new System.Drawing.Size(398, 93);
-            this.pnl.TabIndex = 3;
+            this.pnl.Size = new System.Drawing.Size(425, 93);
+            this.pnl.TabIndex = 2;
             // 
             // tBox
             // 
             this.tBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tBox.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tBox.Location = new System.Drawing.Point(6, 6);
-            this.tBox.Margin = new System.Windows.Forms.Padding(0);
             this.tBox.Multiline = true;
             this.tBox.Name = "tBox";
-            this.tBox.Size = new System.Drawing.Size(386, 81);
+            this.tBox.Size = new System.Drawing.Size(413, 81);
             this.tBox.TabIndex = 0;
+            this.tBox.TextChanged += new System.EventHandler(this.TxtBox_TextChanged);
             this.tBox.Enter += new System.EventHandler(this.TxtRealBoxControl_Enter);
             this.tBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.tBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.tBox.Leave += new System.EventHandler(this.TxtRealBoxControl_Leave);
             // 
-            // txtCpfBox
+            // txtRealNum
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.pnl);
             this.Controls.Add(this.Footer);
             this.Controls.Add(this.Caption);
-            this.ForeColor = System.Drawing.Color.Red;
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "txtCpfBox";
-            this.Size = new System.Drawing.Size(398, 150);
+            this.Name = "txtRealNum";
+            this.Size = new System.Drawing.Size(425, 150);
             this.pnl.ResumeLayout(false);
             this.pnl.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
         #endregion
 
         private Label Caption;

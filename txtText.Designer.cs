@@ -1,6 +1,6 @@
 ﻿namespace RealBoxNetCls
 {
-    partial class txtCpfBox
+    partial class txtText
     {
         /// <summary> 
         /// Required designer variable.
@@ -40,23 +40,25 @@
             this.Caption.AutoSize = true;
             this.Caption.Dock = System.Windows.Forms.DockStyle.Top;
             this.Caption.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Caption.ForeColor = System.Drawing.Color.White;
+            this.Caption.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Caption.Location = new System.Drawing.Point(0, 0);
+            this.Caption.Margin = new System.Windows.Forms.Padding(3);
             this.Caption.Name = "Caption";
-            this.Caption.Size = new System.Drawing.Size(83, 32);
+            this.Caption.Size = new System.Drawing.Size(103, 32);
             this.Caption.TabIndex = 1;
-            this.Caption.Text = "label1";
+            this.Caption.Text = "Caption";
             // 
             // Footer
             // 
             this.Footer.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Footer.ForeColor = System.Drawing.Color.Firebrick;
-            this.Footer.Location = new System.Drawing.Point(0, 125);
+            this.Footer.Location = new System.Drawing.Point(0, 103);
+            this.Footer.Margin = new System.Windows.Forms.Padding(3);
             this.Footer.Name = "Footer";
-            this.Footer.Size = new System.Drawing.Size(398, 25);
+            this.Footer.Size = new System.Drawing.Size(921, 25);
             this.Footer.TabIndex = 2;
-            this.Footer.Text = "label2";
-            this.Footer.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.Footer.Text = "*";
+            this.Footer.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // pnl
             // 
@@ -66,41 +68,39 @@
             this.pnl.Location = new System.Drawing.Point(0, 32);
             this.pnl.Name = "pnl";
             this.pnl.Padding = new System.Windows.Forms.Padding(6);
-            this.pnl.Size = new System.Drawing.Size(398, 93);
+            this.pnl.Size = new System.Drawing.Size(921, 71);
             this.pnl.TabIndex = 3;
             // 
             // tBox
             // 
+            this.tBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tBox.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tBox.Location = new System.Drawing.Point(6, 6);
-            this.tBox.Margin = new System.Windows.Forms.Padding(0);
             this.tBox.Multiline = true;
             this.tBox.Name = "tBox";
-            this.tBox.Size = new System.Drawing.Size(386, 81);
+            this.tBox.Size = new System.Drawing.Size(909, 59);
             this.tBox.TabIndex = 0;
             this.tBox.Enter += new System.EventHandler(this.TxtRealBoxControl_Enter);
             this.tBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.tBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.tBox.Leave += new System.EventHandler(this.TxtRealBoxControl_Leave);
             // 
-            // txtCpfBox
+            // txtText
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.pnl);
             this.Controls.Add(this.Footer);
             this.Controls.Add(this.Caption);
-            this.ForeColor = System.Drawing.Color.Red;
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "txtCpfBox";
-            this.Size = new System.Drawing.Size(398, 150);
+            this.Name = "txtText";
+            this.Size = new System.Drawing.Size(921, 128);
             this.pnl.ResumeLayout(false);
             this.pnl.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
         #endregion
 
         private Label Caption;

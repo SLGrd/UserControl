@@ -5,14 +5,20 @@ public partial class txtCpfBox : UserControl
 {
     public txtCpfBox() => InitializeComponent();
 
-    #region Variables
-    (string, string) LeftRight = new( "abc", "def");
-    private string _Mask = "";
-    private string _UText = "";    
+    #region Variables    
+    private string _Mask     = "___.___.___-__";
+    private string _UText    = "";    
     private int    _FontSize = 14;
+    public string _Title     = "";
+    public string _Msg       = "";
+    public enum TextControl { Regular = 0, LowerCase = 1, UpperCase = 2 };
     private HorizontalAlignment _TextAlign = HorizontalAlignment.Right;
-    #endregion 
+    #endregion
     #region Properties
+    public string Title
+    { get { return _Title; } set { _Title = value; Caption.Text = value; } }
+    public string Msg
+    { get { return _Msg; } set { _Msg = value; Footer.Text = value; } }
     public HorizontalAlignment TextAlign
     { get { return _TextAlign; } set { _TextAlign = value; tBox.TextAlign = value; this.Invalidate();}}
     public int FontSize
@@ -22,23 +28,23 @@ public partial class txtCpfBox : UserControl
     public string Mask
     { get { return _Mask; } set { _Mask = value;}}
     public string UText
-    { get { return _UText; }
+    { get { return tBox.Text; }
       set {
             _UText    = value is null ? "" : value;
-            tBox.Text = MoveText( _UText);
+            tBox.Text = FormatText( _UText);
             tBox.Select(0, 0);}}    
     #endregion
     private void OnKeyPress(object sender, KeyPressEventArgs e)
     {
         if (char.IsDigit(e.KeyChar))
         {
-            string Left  = new(tBox.Text[..tBox.SelectionStart].Where(c => char.IsDigit(c)).ToArray());
-            string Right = new(tBox.Text[tBox.SelectionStart..].Where(c => char.IsDigit(c)).ToArray());
-
-            if ((Left.Length + Right.Length) <  _Mask.Count(f => f == '_'))
+            if ( tBox.Text.Count( d => char.IsDigit(d)) < _Mask.Count(f => f == '_'))
             {
-                tBox.Text = MoveText( Left + e.KeyChar + Right);
-                tBox.SelectionStart = CurPosition( Left + 1);
+                string Left  = new( tBox.Text[..tBox.SelectionStart].Where(c => char.IsDigit(c)).ToArray());
+                string Right = new( tBox.Text[tBox.SelectionStart..].Where(c => char.IsDigit(c)).ToArray());
+
+                tBox.Text = FormatText( Left + e.KeyChar + Right);
+                tBox.SelectionStart = CurPosition( Left.Length + 1);
             }            
         }
         e.Handled = true;
@@ -47,15 +53,15 @@ public partial class txtCpfBox : UserControl
     {
         if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
         {
-            string Left  = new(tBox.Text[..tBox.SelectionStart].Where(c => char.IsDigit(c)).ToArray());
-            string Right = new(tBox.Text[tBox.SelectionStart..].Where(c => char.IsDigit(c)).ToArray());
+            string Left  = new( tBox.Text[..tBox.SelectionStart].Where(c => char.IsDigit(c)).ToArray());
+            string Right = new( tBox.Text[tBox.SelectionStart..].Where(c => char.IsDigit(c)).ToArray());
 
             if (e.KeyCode == Keys.Back   && Left.Length  > 0) Left  = Left.Remove(Left.Length - 1, 1);            
             if (e.KeyCode == Keys.Delete && Right.Length > 0) Right = Right.Remove(0, 1);
             
-            tBox.Text = MoveText( Left + Right);
+            tBox.Text = FormatText( Left + Right);
 
-            tBox.SelectionStart = CurPosition( Left);
+            tBox.SelectionStart = CurPosition( Left.Length);
             e.Handled = true;
         }
 
@@ -67,10 +73,10 @@ public partial class txtCpfBox : UserControl
         if (e.KeyCode == Keys.End) 
         {
             string Left = new(tBox.Text.Where( c => char.IsDigit(c)).ToArray());
-            tBox.SelectionStart = CurPosition( Left); e.Handled = true; 
+            tBox.SelectionStart = CurPosition( Left.Length); e.Handled = true; 
         }
     }
-    private string MoveText( string t)
+    private string FormatText( string t)
     {
         int n = 0;
         char[] s = _Mask.ToCharArray();     // Char array para evitar new strings in a loop
@@ -81,26 +87,21 @@ public partial class txtCpfBox : UserControl
 
         tBox.ForeColor = Color.Black;
         if ( t.Length == _Mask.Count(f => f == '_')) tBox.ForeColor = IsValid( t) ? Color.Black : Color.Red;
-
-        return  new string ( s);
+         
+        return new string(s);
     }
-    private int CurPosition( string l) 
+    private int CurPosition(int p)
     {
-        // Recalcula a posição do cursor
-        int p = l.Length, j = l.Length;
-            for (int i = 0; i < _Mask.Length; i++)
-                if (p > 0)
-                    if (_Mask[i] == '_') p--; else j++;
-                else break;
-        return j;
+        for (int i = 0; i < _Mask.Length; i++)
+            if (_Mask[i] == '_')
+                { p--; if (p < 0) return i; }
+        return _Mask.Length;
     }
-    private void TxtRealBoxControl_Enter(object sender, EventArgs e) => this.BackColor = Color.Black;
-    private void TxtRealBoxControl_Leave(object sender, EventArgs e) => this.BackColor = Color.Gray;
+    private void TxtRealBoxControl_Enter(object sender, EventArgs e) => pnl.BackColor = Color.Black;
+    private void TxtRealBoxControl_Leave(object sender, EventArgs e) => pnl.BackColor = Color.LightGray;
     public bool IsValid( string t)
     {
-        //if ( string.IsNullOrEmpty( t) ) return false;
-
-        string w = new( t.Where(c => char.IsDigit(c)).ToArray());    //  Clear points and hifens
+        string w = new( t.Where(c => char.IsDigit(c)).ToArray());           //  Clear points and hifens
         if (w.Length != 11) return false;                                   //  Numero de caracteres valido ?
 
         //--------------------- Primeiro digito de controle ------------------------------------------------------------
@@ -115,11 +116,11 @@ public partial class txtCpfBox : UserControl
     {
         int Digit = 0;
         for (int i = 0; i < DigitNumber; i++)                           //  Transforma char em binario                                                                         
-        { Digit += (w[i] - '0') * (DigitNumber + 1 - i); }          //  w[i] - '0' =  Convert.ToInt32(w[i].ToString()) 
+            Digit += (w[i] - '0') * (DigitNumber + 1 - i);              //  w[i] - '0' =  Convert.ToInt32(w[i].ToString()) 
 
-        Digit = (11 - (Digit %= 11)) > 9 ? 0 : (11 - (Digit %= 11));  //  11 - Resto da divisão por 11. Se for maior que 9 ==> digito = 0
+        Digit = (Digit %= 11) < 2 ? 0 : 11 - (Digit %= 11);             //  11 - Resto da divisão por 11. Se for maior que 9 ==> digito = 0
 
-        return (char)(Digit + '0');                                    //  Transforma em Ascii : ex 0 em Ascii é 48 binario
+        return (char)(Digit + '0');                                     //  Transforma em Ascii : ex 0 em Ascii é 48 binario
     }
     public void SetColor( string w)
     {
