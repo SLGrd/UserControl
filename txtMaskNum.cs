@@ -8,7 +8,7 @@ public partial class txtMaskNum : UserControl
     #region Variables
     private string _Title = "";
     private string _Msg = "Msg";
-    private string _Mask  = "";
+    private string _Mask = "";
     private string _UText = "";
     private int _FontSize = 16;
     private HorizontalAlignment _TextAlign = HorizontalAlignment.Right;
@@ -33,12 +33,12 @@ public partial class txtMaskNum : UserControl
     { get { return _Mask; } set { _Mask = value; } }
     public string UText
     {
-        get { return _UText; }
+        get { return tBox.Text; }
         set
         {
             _UText = value is null ? "" : value;
             tBox.Text = FormatText(_UText);
-            tBox.Select( 0, 0);
+            tBox.Select(0, 0);
             tBox.SelectionStart = CurPosition(0);
         }
     }
@@ -53,7 +53,7 @@ public partial class txtMaskNum : UserControl
             if ((Left.Length + Right.Length) < _Mask.Count(f => f == '_'))
             {
                 tBox.Text = FormatText(Left + e.KeyChar + Right);
-                tBox.SelectionStart = CurPosition( Left.Length + 1);
+                tBox.SelectionStart = CurPosition(Left.Length + 1);
             }
         }
         e.Handled = true;
@@ -70,7 +70,7 @@ public partial class txtMaskNum : UserControl
 
             tBox.Text = FormatText(Left + Right);
 
-            tBox.SelectionStart = CurPositionBack( Left.Length );
+            tBox.SelectionStart = CurPositionBack(Left.Length);
             e.Handled = true;
         }
 
@@ -95,18 +95,18 @@ public partial class txtMaskNum : UserControl
                 if (n < t.Length) s[i] = (char)t[n++]; else break;
         return new string(s);
     }
-    private int CurPosition( int p)
+    private int CurPosition(int p)
     {
-        for ( int i = 0; i < _Mask.Length; i++)        
-            if (_Mask[i] == '_') 
-                { p--; if (p < 0) return i; }         
+        for (int i = 0; i < _Mask.Length; i++)
+            if (_Mask[i] == '_')
+            { p--; if (p < 0) return i; }
         return _Mask.Length;
     }
     private int CurPositionBack(int p)
     {
-        if (p == 0) return CurPosition( p);   
+        if (p == 0) return CurPosition(p);
         for (int i = 0; i < _Mask.Length; i++)
-        { 
+        {
             if (p == 0) return i;
             if (_Mask[i] == '_') p--;
         }
